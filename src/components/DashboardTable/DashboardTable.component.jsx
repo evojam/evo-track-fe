@@ -1,41 +1,74 @@
 import React, { Component } from "react"
-import { AgGridColumn, AgGridReact } from "ag-grid-react"
+import { AgGridReact } from "ag-grid-react"
 
 import 'ag-grid/dist/styles/ag-grid.css'
-import 'ag-grid/dist/styles/ag-theme-bootstrap.css'
+import 'ag-grid/dist/styles/ag-theme-fresh.css'
 
 export class DashboardTable extends Component {
-  constructor() {
-    super()
-    
+  constructor(props) {
+    super(props)
+
     this.state = {
-      rowData: [
-        {user: 'lolaaa', something: 'sthsth'},
-        {user: 'lol', something: 'sthsth'},
-        {user: 'lol', something: 'sthsth'},
-      ]
+      columnDefs: this.generateColumnDefs(),
+      rowData: this.parseDataToRows(),
     }
+
+    this.parseDataToRows = this.parseDataToRows.bind(this)
+    this.generateColumnDefs = this.generateColumnDefs.bind(this)
   }
   
-  onCellClicked = (event) => {
-    console.log('onCellClicked: ' + event.data.name + ', col ' + event.colIndex);
-  };
-  
-  onRowSelected = (event) => {
-    console.log('onRowSelected: ' + event.node.data.name);
-  };
-  
   render() {
+    const { columnDefs, rowData } = this.state
+
     return (
-      <div style={{height: 525}} className="ag-theme-bootstrap">
+      <div style={{height: 1000}} className="ag-theme-fresh">
         <AgGridReact
-          rowData={this.state.rowData}
-          enableSorting
+          columnDefs={columnDefs}
+          rowData={rowData}
         >
-          <AgGridColumn field="user" width={150} filter="text"></AgGridColumn>
-          <AgGridColumn field="something" width={150} filter="text"></AgGridColumn>
         </AgGridReact>
       </div>
-    );
+    )
+  }
+
+  generateColumnDefs() {
+    const { data } = this.props
+
+    if (data[0] !== undefined) {
+      const leftColumns = [
+        { headerName: 'Name', field: 'name' },
+        { headerName: '∑', field: 'sigma' },
+      ]
+
+      const rightColumns = data[0].data
+        .map(cell => ({
+          headerName: cell.date,
+          field: cell.date,
+        }))
+
+      return [
+        ...leftColumns,
+        ...rightColumns,
+      ]
+    }
+    return []
+  }
+
+  parseDataToRows() {
+    const { data } = this.props
+
+    const generateDays = user => user.data
+      .reduce((acc, day) => {
+        return {
+          ...acc,
+          [day.date]: day.minutes,
+        }
+      }, {})
+
+    return data.map(user => ({
+      name: user.name,
+      sigma: 'worked hours',
+      ...generateDays(user),
+    }))
   }
 }

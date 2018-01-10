@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { users: {loading, data}, dates } = this.props
+    const { users: { loading, data }, dates } = this.props
     return loading
       ? <Loader />
       : (

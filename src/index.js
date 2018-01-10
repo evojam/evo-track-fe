@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import {App} from './views'
+
+import 'bootstrap/dist/css/bootstrap.css';
+import { App } from './views'
 
 ReactDOM.render(<App />, document.getElementById('root'))

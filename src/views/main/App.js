@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
+import {Provider} from 'react-redux'
 import { Button } from 'reactstrap'
 
-export class App extends Component {
-  render() {
-    return (
-      <div>
-        <Button color="danger">Welcome reactstrap! I do nothing.</Button>
-      </div>
-    );
-  }
-}
+import {store} from 'lib/store'
+
+export const App = () => (
+  <Provider store={store}>
+    <Button color="danger">Welcome reactstrap! I do nothing.</Button>
+  </Provider>
+)

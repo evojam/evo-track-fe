@@ -1,4 +1,3 @@
-export const sumAllUsersTime = data => {
-  // console.log(data.reduce(item => item.data.reduce(date => date.minutes), 0), 0)
-  return 330
-}
+import { sumUserTime } from './sumUserTime'
+
+export const sumAllUsersTime = data => data.reduce((counter, user) => counter + sumUserTime(user.data), 0)

@@ -1,12 +1,35 @@
-import { FETCH_USER_SUCCESS } from './const'
+import {
+  FETCHING_USERS,
+  FETCH_USERS_ERROR,
+  FETCH_USERS_SUCCESS,
+} from './const'
 
-export function usersReducer(state = {}, action) {
+const INITIAL_STATE = {
+  loading: false,
+  data: [],
+  error: null,
+}
+
+export function usersReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-
-    case FETCH_USER_SUCCESS:
+    case FETCHING_USERS:
       return {
         ...state,
-        users: [],
+        loading: true,
+      }
+
+    case FETCH_USERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+      }
+
+    case FETCH_USERS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       }
 
     default: return state

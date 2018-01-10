@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { DashboardHeader, DashboardTable, Loader } from 'components'
+import { sumAllUsersTime } from 'helpers'
 
 import {
   fetchUsers,
@@ -10,7 +11,8 @@ import {
 } from 'lib/users/actions'
 
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users,
+  dates: state.dates,
 })
 
 const dispatchToProps = {
@@ -26,13 +28,13 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { users: {loading, data} } = this.props
+    const { users: {loading, data}, dates } = this.props
     return loading
       ? <Loader />
       : (
         <div className="dashboard">
-          <DashboardHeader />
-          <DashboardTable data={data}/>
+          <DashboardHeader dates={dates} sum={sumAllUsersTime(data)} />
+          <DashboardTable data={data} />
         </div>
       )
   }

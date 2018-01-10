@@ -1,11 +1,11 @@
 import React from 'react'
-import {Provider} from 'react-redux'
-import { Button } from 'reactstrap'
+import { Provider } from 'react-redux'
 
-import {store} from 'lib/store'
+import { store } from 'lib/store'
+import { Dashboard } from 'views/dashboard'
 
 export const App = () => (
   <Provider store={store}>
-    <Button color="danger">Welcome reactstrap! I do nothing.</Button>
+    <Dashboard />
   </Provider>
 )

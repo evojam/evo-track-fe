@@ -6,7 +6,7 @@ import {
 } from "./const";
 
 const INITIAL_STATE = {
-  startDate: moment().startOf('month').format(DATE_FORMAT),
+  startDate: moment().startOf('month').subtract(2, 'months').format(DATE_FORMAT),
   endDate: moment().endOf('month').format(DATE_FORMAT),
 }
 

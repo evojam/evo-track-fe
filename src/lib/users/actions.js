@@ -25,7 +25,8 @@ export const fetchUsersError = error => {
 export const fetchUsers = (onSuccess, onError, startDate, endDate) => {
   fetch(`/api/dashboard?from=${startDate}&to=${endDate}`)
     .then(response => {
-      console.log(response)
+      response.json()
+        .then(responseJson => console.log(responseJson))
       onSuccess(response)
     })
     .catch(error => onError(error))

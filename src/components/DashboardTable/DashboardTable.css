@@ -14,3 +14,11 @@
 .dashboard-table .day-td {
   text-align: center;
 }
+
+.warning {
+  color: orange;
+}
+
+.free-day {
+  background-color: lightgray;
+}

@@ -10,6 +10,8 @@ import {
   sumUserTime,
 } from 'helpers'
 
+import { DashBoardCell } from '../DashBoardCell'
+
 import './DashboardTable.css'
 
 export class DashboardTable extends Component {
@@ -77,9 +79,15 @@ export class DashboardTable extends Component {
           const dayClass = dayString === 'Sat' || dayString === 'Sun' ? 'free-day' : ''
           const hours = changeMinutesToHours(day.minutes)
           return (
-            <td className={`day-td ${warningClass} ${dayClass} ${errorClass}`} key={day.id}>
-              {hours === '0.0' ? '' : hours}
-            </td>
+            <DashBoardCell
+              ind={day.id}
+              classes={`day-td ${warningClass} ${dayClass} ${errorClass}`}
+              hours={hours}
+              key={day.id}
+              issues={day.issues}
+              user={user.name}
+              date={day.date}
+            />
           )
         })
 

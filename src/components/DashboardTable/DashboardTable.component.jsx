@@ -4,7 +4,11 @@ import moment from 'moment'
 
 import { DATE_FORMAT } from 'const'
 
-import { changeMinutesToString, sumUserTime } from 'helpers'
+import {
+  changeMinutesToString,
+  changeMinutesToHours,
+  sumUserTime,
+} from 'helpers'
 
 import './DashboardTable.css'
 
@@ -61,7 +65,7 @@ export class DashboardTable extends Component {
             || moment(day.date, DATE_FORMAT).format('ddd') === 'Sun' ? 'free-day' : null
           return (
             <td className={`day-td ${timeClass} ${dayClass}`} key={day.date}>
-              {changeMinutesToString(day.minutes)}
+              {changeMinutesToHours(day.minutes)}
             </td>
           )
         })

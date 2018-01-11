@@ -27,7 +27,7 @@ export const fetchUsers = (onSuccess, onError, startDate, endDate) => {
     .then(response => {
       response.json()
         .then(responseJson => console.log(responseJson))
-      onSuccess(response)
+      onSuccess(data)
     })
     .catch(error => onError(error))
   return {

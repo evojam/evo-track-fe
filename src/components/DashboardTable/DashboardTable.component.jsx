@@ -60,20 +60,27 @@ export class DashboardTable extends Component {
     return data.map(user => {
       const renderDaysCells = days =>
         days.map(day => {
-          const timeClass = day.minutes > 0 && day.minutes < 480 ? 'warning' : null
-          const dayClass = moment(day.date, DATE_FORMAT).format('ddd') === 'Sat'
-            || moment(day.date, DATE_FORMAT).format('ddd') === 'Sun' ? 'free-day' : null
+          const dayString = moment(day.date, DATE_FORMAT).format('ddd')
+          const warningClass = day.minutes > 0 && day.minutes < 480
+            && dayString !== 'Sat' && dayString !== 'Sun'
+            ? 'warning' : null
+          const errorClass = (day.minutes === 0 || day.minutes >= 1440)
+            && dayString !== 'Sat' && dayString !== 'Sun'
+            ? 'error' : null
+          const dayClass = dayString === 'Sat' || dayString === 'Sun' ? 'free-day' : null
           return (
-            <td className={`day-td ${timeClass} ${dayClass}`} key={day.date}>
+            <td className={`day-td ${warningClass} ${dayClass} ${errorClass}`} key={day.date}>
               {changeMinutesToHours(day.minutes)}
             </td>
           )
         })
 
       return (
-        <tr key={user.name} className={sumUserTime(user.data) < 9600 ? 'warning' : null}>
+        <tr key={user.name}>
           <td>{user.name}</td>
-          <td>{changeMinutesToString(sumUserTime(user.data))}</td>
+          <td className={sumUserTime(user.data) < 9600 ? 'warning' : null}>
+            {changeMinutesToString(sumUserTime(user.data))}
+          </td>
           {renderDaysCells(user.data)}
         </tr>
       )

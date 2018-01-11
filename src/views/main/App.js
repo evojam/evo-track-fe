@@ -6,6 +6,8 @@ import { ConnectedDashboard } from 'views/dashboard'
 
 export const App = () => (
   <Provider store={store}>
-    <ConnectedDashboard />
+    <div className="container">
+      <ConnectedDashboard />
+    </div>
   </Provider>
 )

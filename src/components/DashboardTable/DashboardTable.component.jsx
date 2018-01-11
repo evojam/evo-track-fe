@@ -20,21 +20,30 @@ export class DashboardTable extends Component {
     this.renderHeaderCells = this.renderHeaderCells.bind(this)
   }
 
+  componentDidMount() {
+    const table = document.getElementsByClassName('dashboard-table')[0]
+    const clonedTable = table.cloneNode(true)
+    clonedTable.className += " table-cloned"
+    document.getElementsByClassName('table-scroll')[0].appendChild(clonedTable)
+  }
+
   render() {
     return (
-      <div className="table-responsive">
-        <table className="table table-bordered dashboard-table">
-          <thead className="thead-inverse">
-            <tr>
-              <th>Name</th>
-              <th>∑</th>
-              {this.renderHeaderCells()}
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderBodyRows()}
-          </tbody>
-        </table>
+      <div className="table-scroll">
+        <div className="table-responsive">
+          <table className="table table-bordered dashboard-table">
+            <thead className="thead-inverse">
+              <tr>
+                <th className="name-th visible">Name</th>
+                <th className="sigma-th visible">∑</th>
+                {this.renderHeaderCells()}
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderBodyRows()}
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }
@@ -44,9 +53,9 @@ export class DashboardTable extends Component {
 
     if (data[0] !== undefined) {
       return data[0].data.map(day => (
-        <th className="day-th" key={day.id}>
-          {moment(day.date, DATE_FORMAT).format('DD-MM')}
-          <div>{moment(day.date, DATE_FORMAT).format('ddd')}</div>
+        <th className="day-th" key={day.date}>
+          <span className="day-in-numbers">{moment(day.date, DATE_FORMAT).format('DD')}</span>
+          <span className="day-in-words">{moment(day.date, DATE_FORMAT).format('ddd')}</span>
         </th>
       ))
     }
@@ -61,24 +70,23 @@ export class DashboardTable extends Component {
           const dayString = moment(day.date, DATE_FORMAT).format('ddd')
           const warningClass = day.minutes > 0 && day.minutes < 480
             && dayString !== 'Sat' && dayString !== 'Sun'
-            ? 'warning' : null
+            ? 'warning' : ''
           const errorClass = (day.minutes === 0 || day.minutes >= 1440)
             && dayString !== 'Sat' && dayString !== 'Sun'
-            ? 'error' : null
-          const dayClass = dayString === 'Sat' || dayString === 'Sun' ? 'free-day' : null
+            ? 'error' : ''
+          const dayClass = dayString === 'Sat' || dayString === 'Sun' ? 'free-day' : ''
+          const hours = changeMinutesToHours(day.minutes)
           return (
             <td className={`day-td ${warningClass} ${dayClass} ${errorClass}`} key={day.id}>
-              {changeMinutesToHours(day.minutes)}
+              {hours === '0.0' ? '' : hours}
             </td>
           )
         })
 
       return (
-        <tr key={user.name}>
-          <td>{user.name}</td>
-          <td className={sumUserTime(user.data) < 9600 ? 'warning' : null}>
-            {changeMinutesToString(sumUserTime(user.data))}
-          </td>
+        <tr key={user.name} className={sumUserTime(user.data) < 9600 ? 'warning' : ''}>
+          <td className="name-td visible">{user.name}</td>
+          <td className="sigma-td visible">{changeMinutesToString(sumUserTime(user.data))}</td>
           {renderDaysCells(user.data)}
         </tr>
       )

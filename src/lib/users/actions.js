@@ -4,9 +4,6 @@ import {
   FETCH_USERS_SUCCESS,
 } from './const'
 
-// TODO: remove when server data ready
-const fake_data = require('data/users_fake.json')
-
 export const fetchUsersSuccess = data => {
   return {
     type: FETCH_USERS_SUCCESS,

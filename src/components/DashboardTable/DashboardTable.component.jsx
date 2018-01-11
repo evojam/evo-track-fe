@@ -21,8 +21,6 @@ export class DashboardTable extends Component {
   }
 
   render() {
-    const { data } = this.props
-
     return (
       <div className="table-responsive">
         <table className="table table-bordered dashboard-table">
@@ -46,7 +44,7 @@ export class DashboardTable extends Component {
 
     if (data[0] !== undefined) {
       return data[0].data.map(day => (
-        <th className="day-th" key={day.date}>
+        <th className="day-th" key={day.id}>
           {moment(day.date, DATE_FORMAT).format('DD-MM')}
           <div>{moment(day.date, DATE_FORMAT).format('ddd')}</div>
         </th>
@@ -69,7 +67,7 @@ export class DashboardTable extends Component {
             ? 'error' : null
           const dayClass = dayString === 'Sat' || dayString === 'Sun' ? 'free-day' : null
           return (
-            <td className={`day-td ${warningClass} ${dayClass} ${errorClass}`} key={day.date}>
+            <td className={`day-td ${warningClass} ${dayClass} ${errorClass}`} key={day.id}>
               {changeMinutesToHours(day.minutes)}
             </td>
           )
@@ -89,5 +87,5 @@ export class DashboardTable extends Component {
 }
 
 DashboardTable.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
 }

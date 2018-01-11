@@ -1,74 +1,65 @@
 import React, { Component } from "react"
-import { AgGridReact } from "ag-grid-react"
+import PropTypes from 'prop-types'
 
-import 'ag-grid/dist/styles/ag-grid.css'
-import 'ag-grid/dist/styles/ag-theme-fresh.css'
+import './DashboardTable.css'
 
 export class DashboardTable extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      columnDefs: this.generateColumnDefs(),
-      rowData: this.parseDataToRows(),
-    }
-
-    this.parseDataToRows = this.parseDataToRows.bind(this)
-    this.generateColumnDefs = this.generateColumnDefs.bind(this)
+    this.renderBodyRows = this.renderBodyRows.bind(this)
+    this.renderHeaderCells = this.renderHeaderCells.bind(this)
   }
-  
+
   render() {
-    const { columnDefs, rowData } = this.state
+    const { data } = this.props
 
     return (
-      <div style={{height: 1000}} className="ag-theme-fresh">
-        <AgGridReact
-          columnDefs={columnDefs}
-          rowData={rowData}
-        >
-        </AgGridReact>
+      <div className="table-responsive">
+        <table className="table table-bordered dashboard-table">
+          <thead className="thead-inverse">
+            <th>Name</th>
+            <th>∑</th>
+            {this.renderHeaderCells()}
+          </thead>
+          <tbody>
+            {this.renderBodyRows()}
+          </tbody>
+        </table>
       </div>
     )
   }
 
-  generateColumnDefs() {
+  renderHeaderCells() {
     const { data } = this.props
 
     if (data[0] !== undefined) {
-      const leftColumns = [
-        { headerName: 'Name', field: 'name' },
-        { headerName: '∑', field: 'sigma' },
-      ]
-
-      const rightColumns = data[0].data
-        .map(cell => ({
-          headerName: cell.date,
-          field: cell.date,
-        }))
-
-      return [
-        ...leftColumns,
-        ...rightColumns,
-      ]
+      return data[0].data.map(day => (
+        <th className="day-th">{day.date}</th>
+      ))
     }
-    return []
   }
 
-  parseDataToRows() {
+  renderBodyRows() {
     const { data } = this.props
 
-    const generateDays = user => user.data
-      .reduce((acc, day) => {
-        return {
-          ...acc,
-          [day.date]: day.minutes,
-        }
-      }, {})
+    return data.map(user => {
+      const renderDaysCells = days =>
+        days.map(day => (
+          <td className="day-td">{day.minutes}</td>
+        ))
 
-    return data.map(user => ({
-      name: user.name,
-      sigma: 'worked hours',
-      ...generateDays(user),
-    }))
+      return (
+        <tr>
+          <td>{user.name}</td>
+          <td></td>
+          {renderDaysCells(user.data)}
+        </tr>
+      )
+    })
   }
+}
+
+DashboardTable.propTypes = {
+  data: PropTypes.object,
 }

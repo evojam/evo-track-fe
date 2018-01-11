@@ -1,0 +1,16 @@
+.dashboard-table {
+  table-layout: fixed;
+}
+
+.dashboard-table th {
+  width: 150px;
+}
+
+.dashboard-table .day-th {
+  width: 100px;
+  text-align: center;
+}
+
+.dashboard-table .day-td {
+  text-align: center;
+}

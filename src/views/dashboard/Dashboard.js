@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import { DashboardHeader, DashboardTable, Loader } from 'components'
@@ -32,10 +32,10 @@ class Dashboard extends React.Component {
     return loading
       ? <Loader />
       : (
-        <div className="dashboard">
+        <Fragment>
           <DashboardHeader dates={dates} sum={sumAllUsersTime(data)} />
           <DashboardTable data={data} />
-        </div>
+        </Fragment>
       )
   }
 }

@@ -7,6 +7,10 @@ import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
 import { DateRangePicker, DateRangePickerPhrases, DateRangePickerShape } from 'react-dates'
 
+import {
+  DATE_FORMAT,
+} from 'const'
+
 export const START_DATE = 'startDate'
 export const END_DATE = 'endDate'
 export const HORIZONTAL_ORIENTATION = 'horizontal'
@@ -101,7 +105,7 @@ const defaultProps = {
   minimumNights: 1,
   enableOutsideDays: false,
   isDayBlocked: () => false,
-  isOutsideRange: day => !isInclusivelyAfterDay(day, moment()),
+  isOutsideRange: day => isInclusivelyAfterDay(day, moment().add(30, 'days')),
   isDayHighlighted: () => false,
 
   // internationalization
@@ -123,8 +127,8 @@ export class DateRangePickerWrapper extends React.Component {
 
     this.state = {
       focusedInput,
-      startDate: moment(props.dates.startDate, 'DD-MM-YYYY'),
-      endDate: moment(props.dates.endDate, 'DD-MM-YYYY'),
+      startDate: moment(props.dates.startDate, DATE_FORMAT),
+      endDate: moment(props.dates.endDate, DATE_FORMAT),
     }
 
     this.onDatesChange = this.onDatesChange.bind(this)
@@ -133,10 +137,18 @@ export class DateRangePickerWrapper extends React.Component {
 
   onDatesChange({ startDate, endDate }) {
     this.setState({ startDate, endDate })
+    this.props.changeDates()
   }
 
   onFocusChange(focusedInput) {
     this.setState({ focusedInput })
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      startDate: moment(this.props.dates.startDate, DATE_FORMAT),
+      endDate: moment(this.props.dates.endDate, DATE_FORMAT),
+    })
   }
 
   render() {
@@ -146,6 +158,7 @@ export class DateRangePickerWrapper extends React.Component {
     // example wrapper but are not props on the SingleDatePicker itself and
     // thus, have to be omitted.
     const props = omit(this.props, [
+      'changeDates',
       'dates',
       'autoFocus',
       'autoFocusEndDate',

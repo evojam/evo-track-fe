@@ -8,6 +8,7 @@ import {
 const data = require('data/users_fake.json')
 
 export const fetchUsersSuccess = response => {
+  console.log(response)
   return {
     type: FETCH_USERS_SUCCESS,
     payload: data,
@@ -21,9 +22,13 @@ export const fetchUsersError = error => {
   }
 }
 
-export const fetchUsers = (onSuccess, onError) => {
-  fetch('/api')
-    .then(response => onSuccess(response))
+export const fetchUsers = (onSuccess, onError, startDate, endDate) => {
+  fetch(`/api/dashboard?from=${startDate}&to=${endDate}`)
+    .then(response => {
+      response.json()
+        .then(responseJson => console.log(responseJson))
+      onSuccess(response)
+    })
     .catch(error => onError(error))
   return {
     type: FETCHING_USERS,

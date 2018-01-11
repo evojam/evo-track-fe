@@ -1,5 +1,10 @@
 import React, { Component } from "react"
 import PropTypes from 'prop-types'
+import moment from 'moment'
+
+import { DATE_FORMAT } from 'const'
+
+import { changeMinutesToString, sumUserTime } from 'helpers'
 
 import './DashboardTable.css'
 
@@ -18,9 +23,11 @@ export class DashboardTable extends Component {
       <div className="table-responsive">
         <table className="table table-bordered dashboard-table">
           <thead className="thead-inverse">
-            <th>Name</th>
-            <th>∑</th>
-            {this.renderHeaderCells()}
+            <tr>
+              <th>Name</th>
+              <th>∑</th>
+              {this.renderHeaderCells()}
+            </tr>
           </thead>
           <tbody>
             {this.renderBodyRows()}
@@ -35,7 +42,10 @@ export class DashboardTable extends Component {
 
     if (data[0] !== undefined) {
       return data[0].data.map(day => (
-        <th className="day-th">{day.date}</th>
+        <th className="day-th" key={day.date}>
+          {moment(day.date, DATE_FORMAT).format('DD-MM')}
+          <div>{moment(day.date, DATE_FORMAT).format('ddd')}</div>
+        </th>
       ))
     }
   }
@@ -45,14 +55,21 @@ export class DashboardTable extends Component {
 
     return data.map(user => {
       const renderDaysCells = days =>
-        days.map(day => (
-          <td className="day-td">{day.minutes}</td>
-        ))
+        days.map(day => {
+          const timeClass = day.minutes > 0 && day.minutes < 480 ? 'warning' : null
+          const dayClass = moment(day.date, DATE_FORMAT).format('ddd') === 'Sat'
+            || moment(day.date, DATE_FORMAT).format('ddd') === 'Sun' ? 'free-day' : null
+          return (
+            <td className={`day-td ${timeClass} ${dayClass}`} key={day.date}>
+              {changeMinutesToString(day.minutes)}
+            </td>
+          )
+        })
 
       return (
-        <tr>
+        <tr key={user.name} className={sumUserTime(user.data) < 9600 ? 'warning' : null}>
           <td>{user.name}</td>
-          <td></td>
+          <td>{changeMinutesToString(sumUserTime(user.data))}</td>
           {renderDaysCells(user.data)}
         </tr>
       )

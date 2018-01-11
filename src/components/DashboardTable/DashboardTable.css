@@ -1,22 +1,25 @@
 .dashboard-table {
   table-layout: fixed;
+  font-size: 13px;
 }
 
-.dashboard-table th {
-  width: 150px;
+.dashboard-table thead th {
+  vertical-align: middle;
+  border-color: #191919;
 }
 
 .dashboard-table .day-th {
-  width: 100px;
+  width: 60px;
   text-align: center;
 }
 
 .dashboard-table .day-td {
   text-align: center;
+  vertical-align: middle;
 }
 
 .warning {
-  color: orange;
+  color: #9e1b1b;
 }
 
 .error {
@@ -24,5 +27,48 @@
 }
 
 .free-day {
-  background-color: lightgray;
+  background-color: #f6f6f6;
+}
+
+.day-in-words {
+  font-weight: normal;
+  display: block;
+  margin-top: -5px;
+}
+
+.dashboard-table .sigma-td, .dashboard-table .sigma-th {
+  border-left: 0;
+  width: 150px;
+  text-align: right;
+}
+
+.dashboard-table .name-td, .dashboard-table .name-th {
+  border-right: 0;
+  width: 200px;
+}
+
+.table-scroll {
+  position: relative;
+  width: 100%;
+	overflow: hidden;
+}
+
+.table-cloned {
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+}
+
+.table-cloned th, .table-cloned td {
+  visibility: hidden;
+  border-color: transparent;
+}
+
+.table-cloned .visible {
+  visibility: visible;
+}
+
+.table-cloned td.visible {
+  background-color: #fff;
 }

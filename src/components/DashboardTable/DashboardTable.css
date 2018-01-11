@@ -71,4 +71,12 @@
 
 .table-cloned td.visible {
   background-color: #fff;
+  border-color: #eceeef;
+}
+
+.table-cloned .sigma-td:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  box-shadow: 2px 0 15px -5px #0ff;
 }

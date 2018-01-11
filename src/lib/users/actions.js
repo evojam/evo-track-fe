@@ -5,10 +5,9 @@ import {
 } from './const'
 
 // TODO: remove when server data ready
-const data = require('data/users_fake.json')
+const fake_data = require('data/users_fake.json')
 
-export const fetchUsersSuccess = response => {
-  console.log(response)
+export const fetchUsersSuccess = data => {
   return {
     type: FETCH_USERS_SUCCESS,
     payload: data,
@@ -22,14 +21,7 @@ export const fetchUsersError = error => {
   }
 }
 
-export const fetchUsers = (onSuccess, onError, startDate, endDate) => {
-  fetch(`/api/dashboard?from=${startDate}&to=${endDate}`)
-    .then(response => {
-      response.json()
-        .then(responseJson => console.log(responseJson))
-      onSuccess(data)
-    })
-    .catch(error => onError(error))
+export const fetchUsers = () => {
   return {
     type: FETCHING_USERS,
   }

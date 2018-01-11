@@ -37,14 +37,36 @@ class Dashboard extends React.Component {
         endDate,
       }
     } = this.props
-    fetchUsers(fetchUsersSuccess, fetchUsersError, startDate, endDate )
+    fetchUsers()
+    fetch(`/api/dashboard?from=${startDate}&to=${endDate}`)
+      .then(response => {
+        response.json()
+          .then(responseJson => fetchUsersSuccess(responseJson))
+
+      })
+      .catch(error => fetchUsersError(error))
   }
 
   componentWillReceiveProps = nextProps => {
-    const {startDate, endDate} = nextProps.dates
+    const {
+      dates: {
+        startDate,
+        endDate,
+      },
+      fetchUsers,
+      fetchUsersSuccess,
+      fetchUsersError,
+    } = nextProps
     if (startDate !== this.props.dates.startDate
       || endDate !== this.props.dates.endDate) {
-      fetchUsers(fetchUsersSuccess, fetchUsersError, startDate, endDate)
+      fetchUsers()
+      fetch(`/api/dashboard?from=${startDate}&to=${endDate}`)
+        .then(response => {
+          response.json()
+            .then(responseJson => fetchUsersSuccess(responseJson))
+
+        })
+        .catch(error => fetchUsersError(error))
     }
   }
 

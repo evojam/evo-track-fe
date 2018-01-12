@@ -3,16 +3,14 @@ import { connect } from 'react-redux'
 
 import { DashboardHeader, DashboardTable, Loader } from 'components'
 import { sumAllUsersTime } from 'helpers'
-
 import {
   fetchUsers,
   fetchUsersSuccess,
   fetchUsersError,
 } from 'lib/users/actions'
+import { changeDates } from 'lib/dates/actions'
 
-import {
-  changeDates,
-} from 'lib/dates/actions'
+import './Dashboard.css'
 
 const mapStateToProps = state => ({
   users: state.users,
@@ -76,6 +74,8 @@ class Dashboard extends React.Component {
       ? <Loader />
       : (
         <Fragment>
+          <h1 className="evotrack-heading">Evotrack</h1>
+          <span className="evotrack-slogan">We hope it will work</span>
           <DashboardHeader dates={dates} sum={sumAllUsersTime(data)} changeDates={changeDates} />
           <DashboardTable data={data} dates={dates} />
         </Fragment>

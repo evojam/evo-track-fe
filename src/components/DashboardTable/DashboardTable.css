@@ -19,7 +19,7 @@
 }
 
 .warning {
-  background: #fffda1;
+  background: #fffda1 !important;
 }
 
 .bad-time.warning {
@@ -47,7 +47,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 
 .dashboard-table .sigma-td, .dashboard-table .sigma-th {
   border-left: 0;
-  width: 150px;
+  width: 120px;
   text-align: right;
 }
 

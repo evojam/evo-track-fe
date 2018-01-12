@@ -15,7 +15,6 @@ import {
 } from 'helpers'
 
 import { DashBoardCell } from '../DashBoardCell'
-import { Loader } from '../Loader'
 
 import './DashboardTable.css'
 
@@ -28,18 +27,15 @@ export class DashboardTable extends Component {
   }
 
   componentDidMount() {
-    if (this.props.data && this.props.data.length > 0) {
-      const table = document.getElementsByClassName('dashboard-table')[0]
-      const clonedTable = table.cloneNode(true)
-      clonedTable.className += " table-cloned"
-      document.getElementsByClassName('table-scroll')[0].appendChild(clonedTable)
-    }
+    const table = document.getElementsByClassName('dashboard-table')[0]
+    const clonedTable = table.cloneNode(true)
+    clonedTable.className += " table-cloned"
+    document.getElementsByClassName('table-scroll')[0].appendChild(clonedTable)
   }
 
   render() {
-    const { dates: { startDate, endDate }, loading, data} = this.props
-    return  loading ? <Loader/>
-      : data && data.length > 0 ? (
+    const { dates: { startDate, endDate }} = this.props
+    return (
         <div className="table-scroll">
           <div className="table-responsive">
             <table className="table table-bordered dashboard-table">
@@ -59,7 +55,7 @@ export class DashboardTable extends Component {
             </table>
           </div>
         </div>
-    ) : <div className="container"><p>We couldn't find any data for selected dates.</p></div>
+    )
   }
 
   renderHeaderCells() {
@@ -117,7 +113,7 @@ export class DashboardTable extends Component {
 
       return (
         <tr key={user.name}>
-          <td className="name-td visible"><img src={user.avatar} class="avatar" alt="avatar" />{user.name}</td>
+          <td className="name-td visible"><img src={user.avatar} className="avatar" alt="avatar" />{user.name}</td>
           <td className={`sigma-td visible ${periodTimeClass}`}>
             {changeMinutesToString(sumUserTime(user.data))}
           </td>

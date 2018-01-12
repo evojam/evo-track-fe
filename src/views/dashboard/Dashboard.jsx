@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import { DashboardHeader, DashboardTable } from 'components'
+import { DashboardHeader, DashboardTable, Loader } from 'components'
 import { sumAllUsersTime } from 'helpers'
 import {
   fetchUsers,
@@ -73,7 +73,7 @@ class Dashboard extends React.Component {
   render() {
     const { users: { loading, data }, dates, changeDates } = this.props
     const dataFound = data && data.length > 0
-    return (
+    return loading ? <Loader /> : (
       <Fragment>
         <div className="container">
           <h1 className="evotrack-heading">
@@ -83,10 +83,11 @@ class Dashboard extends React.Component {
           <span className="evotrack-slogan">We hope it will work</span>
           <DashboardHeader dates={dates} sum={sumAllUsersTime(data)} dataFound={dataFound} changeDates={changeDates} />
         </div>
-        <DashboardTable data={data} dates={dates} loading={loading} />
+        {dataFound ? <DashboardTable data={data} dates={dates} loading={loading} />
+          : <div className="container"><p>We couldn't find any data for selected dates.</p></div>}
 
       </Fragment>
-      )
+     )
   }
 }
 

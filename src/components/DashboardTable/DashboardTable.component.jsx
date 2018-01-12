@@ -6,9 +6,12 @@ import { DATE_FORMAT } from 'const'
 
 import {
   changeMinutesToString,
+  changeMinutesToHours,
   sumUserTime,
   sumOfHoursFromWorkDays,
   isHoliday,
+  sumAllUsersTime,
+  sumAllByDay,
 } from 'helpers'
 
 import { DashBoardCell } from '../DashBoardCell'
@@ -47,6 +50,7 @@ export class DashboardTable extends Component {
             </thead>
             <tbody>
               {this.renderBodyRows()}
+              {this.renderFooter()}
             </tbody>
           </table>
         </div>
@@ -114,6 +118,22 @@ export class DashboardTable extends Component {
         </tr>
       )
     })
+  }
+
+  renderFooter() {
+    const { data } = this.props
+
+    const sums = sumAllByDay(data)
+
+    return (
+      <tr className="footer">
+        <td className="name-td visible">Sum:</td>
+        <td className={`sigma-td visible`}>
+          {changeMinutesToString(sumAllUsersTime(data))}
+        </td>
+        {sums.map((sum, index) => <td key={index}>{changeMinutesToHours(sum)}</td>)}
+      </tr>
+    )
   }
 }
 

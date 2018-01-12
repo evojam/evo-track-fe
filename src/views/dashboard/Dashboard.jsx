@@ -12,6 +12,8 @@ import { changeDates } from 'lib/dates/actions'
 
 import './Dashboard.css'
 
+const logo = require('./logo.jpg')
+
 const mapStateToProps = state => ({
   users: state.users,
   dates: state.dates,
@@ -76,7 +78,10 @@ class Dashboard extends React.Component {
       : (
         <Fragment>
           <div className="container">
-            <h1 className="evotrack-heading">Evotrack</h1>
+            <h1 className="evotrack-heading">
+              <img className="logo" alt="logo" src={logo}/>
+              Evotrack
+            </h1>
             <span className="evotrack-slogan">We hope it will work</span>
             <DashboardHeader dates={dates} sum={sumAllUsersTime(data)} dataFound={dataFound} changeDates={changeDates} />
           </div>

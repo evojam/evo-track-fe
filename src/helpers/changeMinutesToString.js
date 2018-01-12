@@ -1,4 +1,5 @@
 export const changeMinutesToString = minutes => {
+  const hours = Math.floor(minutes / 60)
   const min = minutes % 60
-  return `${Math.floor(minutes / 60)}h${min !== 0 ? ` ${min}min` : '' }`
+  return `${hours !== 0 ? `${hours}h` : '' }${min !== 0 ? ` ${min}m` : '' }`
 }

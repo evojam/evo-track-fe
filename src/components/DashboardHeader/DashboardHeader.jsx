@@ -7,10 +7,13 @@ import { HeaderCounter } from '../HeaderCounter'
 
 import { DATE_FORMAT } from 'const'
 
+import './DashboardHeader.css'
+
 const countShift = (start, end) => moment(end, DATE_FORMAT)
   .diff(moment(start, DATE_FORMAT), 'days')
 
 export const DashboardHeader = props => {
+  const { dataFound } = props
 
   const onLeftClick = () => {
     const {startDate, endDate} = props.dates
@@ -29,17 +32,15 @@ export const DashboardHeader = props => {
   }
 
   return (
-    <div>
-      <div>
-        <Button color="secondary" onClick={onLeftClick}>
-          {'<'}
-        </Button>
-        <Button color="secondary" onClick={onRightClick}>
-          {'>'}
-        </Button>
-        <DateRangePickerWrapper dates={props.dates} changeDates={props.changeDates} />
-        <HeaderCounter sum={props.sum}/>
-      </div>
+    <div className="dashboard-header">
+      <DateRangePickerWrapper dates={props.dates} changeDates={props.changeDates} />
+      <Button color="secondary" onClick={onLeftClick} className="button-left">
+        &laquo;
+      </Button>
+      <Button color="secondary" onClick={onRightClick} className="button-right">
+        &raquo;
+      </Button>
+      {dataFound && <HeaderCounter sum={props.sum}/>}
     </div>
   )
 }

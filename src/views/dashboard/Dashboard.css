@@ -11,3 +11,7 @@
   display: block;
   font-size: 20px;
 }
+
+button:hover {
+  cursor: pointer;
+}

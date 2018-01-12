@@ -1,0 +1,8 @@
+.button-left, .button-right {
+  height: 50px;
+  margin-left: 10px;
+}
+
+.dashboard-header {
+  margin-bottom: 40px;
+}

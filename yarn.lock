@@ -4215,13 +4215,7 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-moment-holiday@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/moment-holiday/-/moment-holiday-1.5.1.tgz#b37939c52b919b02ff142d754037ee776cd40547"
-  dependencies:
-    moment ">=2.0.0"
-
-moment@2.20.1, moment@>=1.6.0, moment@>=2.0.0:
+moment@2.20.1, moment@>=1.6.0:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
@@ -4461,6 +4455,12 @@ object.values@^1.0.4:
 obuf@^1.0.0, obuf@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.1.tgz#104124b6c602c6796881a042541d36db43a5264e"
+
+octicons@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/octicons/-/octicons-7.1.0.tgz#ed332a537fd5f6141352c453aad8a6679cea1638"
+  dependencies:
+    object-assign "^4.1.1"
 
 on-finished@~2.3.0:
   version "2.3.0"

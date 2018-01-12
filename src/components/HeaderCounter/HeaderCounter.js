@@ -6,6 +6,6 @@ import './HeaderCounter.css'
 
 export const HeaderCounter = props => (
   <div className="header-counter">
-    Total Hours: {changeMinutesToString(props.sum)}
+    <span>Total Hours:</span> {changeMinutesToString(props.sum)}
   </div>
 )

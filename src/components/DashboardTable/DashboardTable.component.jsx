@@ -104,7 +104,7 @@ export class DashboardTable extends Component {
               minutes={minutes}
               key={day.id}
               issues={day.issues}
-              user={user.name}
+              user={user}
               date={day.date}
             />
           )
@@ -117,7 +117,7 @@ export class DashboardTable extends Component {
 
       return (
         <tr key={user.name}>
-          <td className="name-td visible">{user.name}</td>
+          <td className="name-td visible"><img src={user.avatar} class="avatar" alt="avatar" />{user.name}</td>
           <td className={`sigma-td visible ${periodTimeClass}`}>
             {changeMinutesToString(sumUserTime(user.data))}
           </td>

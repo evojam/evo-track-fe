@@ -74,7 +74,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 	position: absolute;
 	top: 0;
 	left: 0;
-	pointer-events: none;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 .table-cloned th, .table-cloned td {
@@ -126,4 +127,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 
 .error.holiday {
   background: #ffdfdf;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
 }

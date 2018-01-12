@@ -77,7 +77,7 @@ class Dashboard extends React.Component {
       : (
         <Fragment>
           <DashboardHeader dates={dates} sum={sumAllUsersTime(data)} changeDates={changeDates} />
-          <DashboardTable data={data} />
+          <DashboardTable data={data} dates={dates} />
         </Fragment>
       )
   }

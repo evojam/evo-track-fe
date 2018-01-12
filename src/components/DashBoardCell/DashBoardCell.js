@@ -1,6 +1,9 @@
 import React from 'react'
 
 import { Details } from '../Details'
+import {
+  changeMinutesToHours,
+} from 'helpers'
 
 export class DashBoardCell extends React.Component {
   constructor(props) {
@@ -18,7 +21,8 @@ export class DashBoardCell extends React.Component {
     });
   }
   render() {
-    const {classes, ind, hours, issues, user, date} = this.props
+    const {classes, ind, minutes, issues, user, date} = this.props
+    const hours = changeMinutesToHours(minutes)
     return (
       <td
         className={classes}
@@ -26,6 +30,7 @@ export class DashBoardCell extends React.Component {
         onClick={this.toggle}
       >
         {hours === '0.0' ? '' : hours}
+        {minutes % 30 !== 0 && ' !!!'}
         {this.props.issues.length > 0 && (
           <Details
             ind={ind}

@@ -98,3 +98,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 .active-cell:not(.warning):hover {
   background: #fafafa;
 }
+
+.footer {
+  font-weight: bold;
+}

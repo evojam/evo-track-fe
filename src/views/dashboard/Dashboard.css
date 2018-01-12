@@ -12,6 +12,11 @@
   font-size: 20px;
 }
 
+.logo {
+  margin-top: -20px;
+  width: 80px;
+}
+
 button:hover {
   cursor: pointer;
 }

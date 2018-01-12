@@ -19,12 +19,14 @@ export class Details extends React.Component{
       <Fragment>
         <Popover className="detail-popover" placement="bottom" isOpen={this.props.open} target={`Popover${this.props.ind}`} toggle={this.props.toggle}>
           <PopoverBody>
-            <span className="details-user"><img src={user.avatar} class="avatar" alt="avatar" /><span className="details-name">{user.name}</span></span>
+            <span className="details-user"><img src={user.avatar} className="avatar" alt="avatar" /><span className="details-name">{user.name}</span></span>
             <span className="details-date">{date}</span>
             <table className="table">
               <thead>
-                <th>Issue</th>
-                <th>Worked</th>
+                <tr>
+                  <th>Issue</th>
+                  <th>Worked</th>
+                </tr>
               </thead>
 
               <tbody>

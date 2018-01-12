@@ -12,6 +12,7 @@ export class Details extends React.Component{
       <tr key={index}>
         <td><a href={`https://evojam.atlassian.net/browse/${issue.key}`} target="_blank">{issue.key}</a></td>
         <td>{changeMinutesToString(issue.time)}</td>
+        <td>{issue.jira}</td>
       </tr>
     ))
 
@@ -26,6 +27,7 @@ export class Details extends React.Component{
                 <tr>
                   <th>Issue</th>
                   <th>Worked</th>
+                  <th>Jira</th>
                 </tr>
               </thead>
 

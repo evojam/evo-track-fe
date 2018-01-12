@@ -3,16 +3,14 @@ import { connect } from 'react-redux'
 
 import { DashboardHeader, DashboardTable, Loader } from 'components'
 import { sumAllUsersTime } from 'helpers'
-
 import {
   fetchUsers,
   fetchUsersSuccess,
   fetchUsersError,
 } from 'lib/users/actions'
+import { changeDates } from 'lib/dates/actions'
 
-import {
-  changeDates,
-} from 'lib/dates/actions'
+import './Dashboard.css'
 
 const mapStateToProps = state => ({
   users: state.users,
@@ -72,12 +70,20 @@ class Dashboard extends React.Component {
 
   render() {
     const { users: { loading, data }, dates, changeDates } = this.props
+    const dataFound = data && data.length > 0
     return loading
       ? <Loader />
       : (
         <Fragment>
-          <DashboardHeader dates={dates} sum={sumAllUsersTime(data)} changeDates={changeDates} />
-          <DashboardTable data={data} dates={dates} />
+          <div className="container">
+            <h1 className="evotrack-heading">Evotrack</h1>
+            <span className="evotrack-slogan">We hope it will work</span>
+            <DashboardHeader dates={dates} sum={sumAllUsersTime(data)} dataFound={dataFound} changeDates={changeDates} />
+          </div>
+          {dataFound
+            ? <DashboardTable data={data} dates={dates} />
+            : <div className="container"><p>We couldn't find any data for selected dates.</p></div>
+          }
         </Fragment>
       )
   }

@@ -81,19 +81,22 @@ export class DashboardTable extends Component {
           const warningClass = day.minutes > 0 && day.minutes < 480
             && dayString !== 'Sat' && dayString !== 'Sun'
             ? 'warning' : ''
-          const errorClass = (day.minutes === 0 || day.minutes >= 1440)
+          const errorClass = (day.minutes >= 1440)
             && dayString !== 'Sat' && dayString !== 'Sun'
             ? 'error' : ''
+          const noLogsClass = day.minutes === 0 && 'no-logs'
           const dayClass = dayString === 'Sat'
             || dayString === 'Sun'
-            || isHoliday(moment(day.date, DATE_FORMAT))
             ? 'free-day' : ''
+          const holidayClass = isHoliday(moment(day.date, DATE_FORMAT))
+            ? 'holiday'
+            : ''
           const minutes = day.minutes
           const activeClass = minutes > 0 ? 'active-cell' : ''
           return (
             <DashBoardCell
               ind={day.id}
-              classes={`day-td ${warningClass} ${dayClass} ${errorClass} ${activeClass}`}
+              classes={`day-td ${warningClass} ${dayClass} ${errorClass} ${activeClass} ${noLogsClass} ${holidayClass}`}
               minutes={minutes}
               key={day.id}
               issues={day.issues}

@@ -12,7 +12,7 @@ import { changeDates } from 'lib/dates/actions'
 
 import './Dashboard.css'
 
-const logo = require('./logo.jpg')
+const logo = require('./evojam.png')
 
 const mapStateToProps = state => ({
   users: state.users,

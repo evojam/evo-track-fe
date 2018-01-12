@@ -36,7 +36,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 }
 
 .error {
-  color: red;
+  background-color: #ffdfdf;
 }
 
 .free-day {
@@ -52,7 +52,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 .dashboard-table .sigma-td, .dashboard-table .sigma-th {
   border-left: 0;
   width: 120px;
-  text-align: right;
+  text-align: right !important;
+}
+
+.dashboard-table .name-td {
+  text-align: left !important;
 }
 
 .dashboard-table .name-td, .dashboard-table .name-th {
@@ -88,7 +92,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 }
 
 .table-cloned .sigma-td {
-  border-right: 2px solid #999999;
+  border-right: 2px solid #eceeef;
 }
 
 .active-cell {
@@ -105,4 +109,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 
 .footer {
   font-weight: bold;
+}
+
+.footer td {
+  text-align: center;
+  border-top: 2px solid #eceeef;
+}
+
+.no-logs {
+  
+}
+
+.holiday {
+  background: #c9ffbc;
+}
+
+.error.holiday {
+  background: #ffdfdf;
 }

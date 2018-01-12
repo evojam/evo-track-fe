@@ -6,3 +6,7 @@
 .dashboard-header {
   margin-bottom: 40px;
 }
+
+.bad-time {
+  background: #ffdfdf;
+}

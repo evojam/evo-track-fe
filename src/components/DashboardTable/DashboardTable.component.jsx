@@ -6,8 +6,9 @@ import { DATE_FORMAT } from 'const'
 
 import {
   changeMinutesToString,
-  changeMinutesToHours,
   sumUserTime,
+  sumOfHoursFromWorkDays,
+  isHoliday,
 } from 'helpers'
 
 import { DashBoardCell } from '../DashBoardCell'
@@ -30,6 +31,7 @@ export class DashboardTable extends Component {
   }
 
   render() {
+    const { startDate, endDate } = this.props.dates
     return (
       <div className="table-scroll">
         <div className="table-responsive">
@@ -37,7 +39,9 @@ export class DashboardTable extends Component {
             <thead className="thead-inverse">
               <tr>
                 <th className="name-th visible">Name</th>
-                <th className="sigma-th visible">∑</th>
+                <th className="sigma-th visible">
+                  ∑ (Total: {sumOfHoursFromWorkDays(startDate, endDate)})
+                </th>
                 {this.renderHeaderCells()}
               </tr>
             </thead>
@@ -64,7 +68,7 @@ export class DashboardTable extends Component {
   }
 
   renderBodyRows() {
-    const { data } = this.props
+    const { data, dates: {startDate, endDate} } = this.props
 
     return data.map(user => {
       const renderDaysCells = days =>
@@ -76,13 +80,16 @@ export class DashboardTable extends Component {
           const errorClass = (day.minutes === 0 || day.minutes >= 1440)
             && dayString !== 'Sat' && dayString !== 'Sun'
             ? 'error' : ''
-          const dayClass = dayString === 'Sat' || dayString === 'Sun' ? 'free-day' : ''
-          const hours = changeMinutesToHours(day.minutes)
+          const dayClass = dayString === 'Sat'
+            || dayString === 'Sun'
+            || isHoliday(moment(day.date, DATE_FORMAT))
+            ? 'free-day' : ''
+          const minutes = day.minutes
           return (
             <DashBoardCell
               ind={day.id}
               classes={`day-td ${warningClass} ${dayClass} ${errorClass}`}
-              hours={hours}
+              minutes={minutes}
               key={day.id}
               issues={day.issues}
               user={user.name}
@@ -91,10 +98,17 @@ export class DashboardTable extends Component {
           )
         })
 
+      const totalPeriodHours = sumOfHoursFromWorkDays(startDate, endDate)
+
+      const periodTimeClass = Math.abs(sumUserTime(user.data) / 60 - totalPeriodHours) > 8
+        ? 'warning' : null
+
       return (
-        <tr key={user.name} className={sumUserTime(user.data) < 9600 ? 'warning' : ''}>
+        <tr key={user.name}>
           <td className="name-td visible">{user.name}</td>
-          <td className="sigma-td visible">{changeMinutesToString(sumUserTime(user.data))}</td>
+          <td className={`sigma-td visible ${periodTimeClass}`}>
+            {changeMinutesToString(sumUserTime(user.data))}
+          </td>
           {renderDaysCells(user.data)}
         </tr>
       )

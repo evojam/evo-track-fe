@@ -19,7 +19,11 @@
 }
 
 .warning {
-  background: #fffda1 !important;
+  background: #fffda1;
+}
+
+.sigma-td.warning {
+  color: orange;
 }
 
 .bad-time.warning {

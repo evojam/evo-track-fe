@@ -75,7 +75,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', end
 	top: 0;
 	left: 0;
   pointer-events: none;
-  z-index: 9999;
 }
 
 .table-cloned th, .table-cloned td {

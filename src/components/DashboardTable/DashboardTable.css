@@ -19,7 +19,16 @@
 }
 
 .warning {
-  color: #9e1b1b;
+  background: #fffda1;
+}
+
+.bad-time.warning {
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fffda1+0,fffda1+50,ffdfdf+51,ffdfdf+100 */
+background: rgb(255,253,161); /* Old browsers */
+background: -moz-linear-gradient(-45deg, rgba(255,253,161,1) 0%, rgba(255,253,161,1) 50%, rgba(255,223,223,1) 51%, rgba(255,223,223,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, rgba(255,253,161,1) 0%,rgba(255,253,161,1) 50%,rgba(255,223,223,1) 51%,rgba(255,223,223,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, rgba(255,253,161,1) 0%,rgba(255,253,161,1) 50%,rgba(255,223,223,1) 51%,rgba(255,223,223,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffda1', endColorstr='#ffdfdf',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .error {
@@ -74,9 +83,22 @@
   border-color: #eceeef;
 }
 
-.table-cloned .sigma-td:after {
-  content: '';
-  width: 100%;
-  height: 100%;
-  box-shadow: 2px 0 15px -5px #0ff;
+.table-cloned .sigma-td {
+  border-right: 2px solid #999999;
+}
+
+.active-cell {
+  transition: background 0.1s ease;
+}
+
+.active-cell:hover {
+  cursor: pointer;
+}
+
+.active-cell:not(.warning):hover {
+  background: #fafafa;
+}
+
+.footer {
+  font-weight: bold;
 }

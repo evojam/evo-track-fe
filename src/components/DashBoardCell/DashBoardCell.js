@@ -23,14 +23,14 @@ export class DashBoardCell extends React.Component {
   render() {
     const {classes, ind, minutes, issues, user, date} = this.props
     const hours = changeMinutesToHours(minutes)
+    const badTimeClass = minutes % 30 !== 0 && 'bad-time'
     return (
       <td
-        className={classes}
+        className={`${classes} ${badTimeClass}`}
         id={`Popover${ind}`}
         onClick={this.toggle}
       >
         {hours === '0.0' ? '' : hours}
-        {minutes % 30 !== 0 && ' !!!'}
         {this.props.issues.length > 0 && (
           <Details
             ind={ind}

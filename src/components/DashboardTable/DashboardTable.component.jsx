@@ -85,10 +85,11 @@ export class DashboardTable extends Component {
             || isHoliday(moment(day.date, DATE_FORMAT))
             ? 'free-day' : ''
           const minutes = day.minutes
+          const activeClass = minutes > 0 ? 'active-cell' : ''
           return (
             <DashBoardCell
               ind={day.id}
-              classes={`day-td ${warningClass} ${dayClass} ${errorClass}`}
+              classes={`day-td ${warningClass} ${dayClass} ${errorClass} ${activeClass}`}
               minutes={minutes}
               key={day.id}
               issues={day.issues}

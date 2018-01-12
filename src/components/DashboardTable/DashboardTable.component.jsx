@@ -15,6 +15,7 @@ import {
 } from 'helpers'
 
 import { DashBoardCell } from '../DashBoardCell'
+import { Loader } from '../Loader'
 
 import './DashboardTable.css'
 
@@ -27,35 +28,38 @@ export class DashboardTable extends Component {
   }
 
   componentDidMount() {
-    const table = document.getElementsByClassName('dashboard-table')[0]
-    const clonedTable = table.cloneNode(true)
-    clonedTable.className += " table-cloned"
-    document.getElementsByClassName('table-scroll')[0].appendChild(clonedTable)
+    if (this.props.data && this.props.data.length > 0) {
+      const table = document.getElementsByClassName('dashboard-table')[0]
+      const clonedTable = table.cloneNode(true)
+      clonedTable.className += " table-cloned"
+      document.getElementsByClassName('table-scroll')[0].appendChild(clonedTable)
+    }
   }
 
   render() {
-    const { startDate, endDate } = this.props.dates
-    return (
-      <div className="table-scroll">
-        <div className="table-responsive">
-          <table className="table table-bordered dashboard-table">
-            <thead className="thead-inverse">
-              <tr>
-                <th className="name-th visible">Name</th>
-                <th className="sigma-th visible">
-                  ∑ (Total: {sumOfHoursFromWorkDays(startDate, endDate)})
-                </th>
-                {this.renderHeaderCells()}
-              </tr>
-            </thead>
-            <tbody>
-              {this.renderBodyRows()}
-              {this.renderFooter()}
-            </tbody>
-          </table>
+    const { dates: { startDate, endDate }, loading, data} = this.props
+    return  loading ? <Loader/>
+      : data && data.length > 0 ? (
+        <div className="table-scroll">
+          <div className="table-responsive">
+            <table className="table table-bordered dashboard-table">
+              <thead className="thead-inverse">
+                <tr>
+                  <th className="name-th visible">Name</th>
+                  <th className="sigma-th visible">
+                    ∑ (Total: {sumOfHoursFromWorkDays(startDate, endDate)})
+                  </th>
+                  {this.renderHeaderCells()}
+                </tr>
+              </thead>
+              <tbody>
+                {this.renderBodyRows()}
+                {this.renderFooter()}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    )
+    ) : <div className="container"><p>We couldn't find any data for selected dates.</p></div>
   }
 
   renderHeaderCells() {

@@ -1,0 +1,18 @@
+.popover {
+  padding: 30px;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.popover-header {
+  font-size: 15px;
+}
+
+.details-name {
+  font-size: 20px;
+}
+
+.popover-body p {
+  font-size: 15px;
+  border-bottom: 1px solid #d3d3d3;
+}

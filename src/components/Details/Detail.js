@@ -10,6 +10,7 @@ export class Details extends React.Component{
     const { date, user, issues } = this.props
     const mappedIssues = issues.map((issue, index) => (
       <tr key={index}>
+        <td>{issue.jira}</td>
         <td><a href={`https://evojam.atlassian.net/browse/${issue.key}`} target="_blank">{issue.key}</a></td>
         <td>{changeMinutesToString(issue.time)}</td>
       </tr>
@@ -23,6 +24,7 @@ export class Details extends React.Component{
             <span className="details-date">{date}</span>
             <table className="table">
               <thead>
+                <th>Jira</th>
                 <th>Issue</th>
                 <th>Worked</th>
               </thead>

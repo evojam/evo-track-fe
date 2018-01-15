@@ -43,7 +43,8 @@ export class DashboardTable extends Component {
                 <tr>
                   <th className="name-th visible">Name</th>
                   <th className="sigma-th visible">
-                    ∑ (Total: {sumOfHoursFromWorkDays(startDate, endDate)})
+                    ∑ (Total: {sumOfHoursFromWorkDays(startDate,
+                    moment(endDate, DATE_FORMAT).isAfter(moment()) ? moment().format(DATE_FORMAT) : endDate)})
                   </th>
                   {this.renderHeaderCells()}
                 </tr>
@@ -106,7 +107,8 @@ export class DashboardTable extends Component {
           )
         })
 
-      const totalPeriodHours = sumOfHoursFromWorkDays(startDate, endDate)
+      const totalPeriodHours = sumOfHoursFromWorkDays(startDate,
+        moment(endDate, DATE_FORMAT).isAfter(moment()) ? moment().format(DATE_FORMAT) : endDate)
 
       const periodTimeClass = Math.abs(sumUserTime(user.data) / 60 - totalPeriodHours) > 8
         ? 'warning' : null
